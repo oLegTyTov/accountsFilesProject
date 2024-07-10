@@ -1,6 +1,3 @@
-# accountsFilesProject
-
-This project utilizes Spring Framework technologies, including Spring Data for managing files (blobs), Thymeleaf for templating, Spring Security for authentication and authorization, and Spring MVC for web development.
 
 ## Setup Instructions
 
