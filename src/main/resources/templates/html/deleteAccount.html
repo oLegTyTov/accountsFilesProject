@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Delete Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffebee;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #d32f2f;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        input[type="text"], input[type="password"] {
+            margin-bottom: 10px;
+            padding: 8px;
+            width: 80%;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #d32f2f;
+            outline: none;
+        }
+
+        button {
+            background-color: #c62828;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        button:hover {
+            background-color: #b71c1c;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Delete Account</h1>
+    <form th:action="@{/deleteAccount}" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" th:name="name" th:value="*{name}"><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" th:name="password" th:value="*{password}"><br>
+        <button type="submit">Delete Account</button>
+    </form>
+</body>
+</html>

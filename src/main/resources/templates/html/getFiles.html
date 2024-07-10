@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Files List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4c3;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #388e3c;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        a {
+            text-decoration: none;
+            color: #388e3c;
+            transition: color 0.3s, background-color 0.3s, transform 0.3s;
+        }
+
+        a:hover {
+            color: #1b5e20;
+            background-color: #dcedc8;
+            padding: 5px;
+            border-radius: 5px;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Files List</h1>
+    <div th:if="${files != null}">
+        <h2>Files List</h2>
+        <ul>
+            <li th:each="file : ${files}">
+                <p>ID: <span th:text="${file.id}"></span></p>
+                <a th:href="@{/account/download/{id}(id=${file.id})}">Download file with ID <span th:text="${file.id}"></span></a>
+            </li>
+        </ul>
+    </div>
+    <a href="/account">Back to Account</a>
+</body>
+</html>

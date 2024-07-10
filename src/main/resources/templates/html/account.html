@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Account</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4c3;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        a {
+            text-decoration: none;
+            color: #388e3c;
+            display: block;
+            margin: 10px 0;
+            transition: color 0.3s, background-color 0.3s, transform 0.3s;
+        }
+
+        a:hover {
+            color: #1b5e20;
+            background-color: #dcedc8;
+            padding: 5px;
+            border-radius: 5px;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <h1>Account</h1>
+    <p>Welcome, <span th:text="${name}"></span>!</p>
+    <a th:href="@{/account/addFile}">Add File</a><br>
+    <a th:href="@{/account/deleteFile}">Delete File</a><br>
+    <a th:href="@{/account/getFile}">Get File</a><br>
+    <a th:href="@{/account/getFiles}">Get All Files</a><br>
+    <a th:href="@{/logout}">Logout</a>
+</body>
+</html>
