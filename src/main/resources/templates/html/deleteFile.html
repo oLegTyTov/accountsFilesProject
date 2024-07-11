@@ -51,6 +51,9 @@
 </head>
 <body>
     <h1>Delete a File</h1>
+    <div th:if="${param.error}" class="error">
+        <p>Error retrieving file. Please try again.</p>
+    </div>
     <form th:action="@{/account/deleteFile}" method="post">
         <label for="id">File ID:</label>
         <input type="text" id="id" name="id"><br>

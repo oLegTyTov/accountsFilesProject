@@ -42,6 +42,9 @@
 </head>
 <body>
     <h1>Files List</h1>
+    <div th:if="${param.error}" class="error">
+        <p>Error retrieving files. Please try again.</p>
+    </div>
     <div th:if="${files != null}">
         <h2>Files List</h2>
         <ul>

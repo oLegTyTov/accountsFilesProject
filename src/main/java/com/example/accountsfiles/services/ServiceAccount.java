@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -23,28 +24,30 @@ public class ServiceAccount implements UserDetailsService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void addAccount(Account account) {
+    public boolean addAccount(Account account) {
         if (!repositoryAccount.existsByName(account.getName())) {
             // Шифруємо пароль перед збереженням
             account.setPassword(passwordEncoder.encode(account.getPassword()));
             repositoryAccount.save(account);
+            return true;
         } else {
-            System.out.println("Error: Account with name already exists");
+            return false;
         }
     }
+public boolean deleteAccount(String name, String password) {
+    // Знайти акаунт за ім'ям
+    Account account = repositoryAccount.findByName(name);
+    
+    // Перевірити, чи акаунт існує та чи паролі співпадають
+    if (account != null && passwordEncoder.matches(password, account.getPassword())) {
+        // Видалити акаунт за ім'ям
+        repositoryAccount.deleteByName(name);
+        return true;
+    } else {
+        return false;
+    }
+}
 
-    public void deleteAccount(String name, String password) {
-        if (repositoryAccount.existsByName(name)) {
-            Account account = repositoryAccount.findByName(name);
-            if (passwordEncoder.matches(password, account.getPassword())) {
-                repositoryAccount.deleteByName(name);
-            } else {
-                System.out.println("Error: Incorrect password");
-            }
-        } else {
-            System.out.println("Error: Account with name does not exist");
-        }
-    }
 
     public boolean existsByNameAndPassword(String name, String password) {
         Account account = repositoryAccount.findByName(name);

@@ -22,7 +22,7 @@ public class MyFileController {
         this.serviceMyFile = serviceMyFile;
     }
 
-    @GetMapping()
+    @GetMapping
     public String account(Model model, Principal principal) {
         String name = principal.getName();
         model.addAttribute("name", name);
@@ -49,10 +49,15 @@ public class MyFileController {
 
     @PostMapping("/deleteFile")
     public String deleteFile(@RequestParam Long id, Model model, Principal principal) {
-        serviceMyFile.deleteFile(id);
         String name = principal.getName();
         model.addAttribute("name", name);
-        return "redirect:/account";
+        if(serviceMyFile.deleteFile(id))
+        {
+            return "redirect:/account";
+        }
+        else{
+            return "redirect:/account/deleteFile?error=true";
+        }
     }
 
     @GetMapping("/getFile")
@@ -62,19 +67,32 @@ public class MyFileController {
 
     @PostMapping("/getFile")
     public String getFile(@RequestParam Long id, Model model,Principal principal) {
+        
         MyFile file = serviceMyFile.getFile(id, principal.getName());
         model.addAttribute("file", file);
-        return "html/getFileDetails";
+        if(file!=null)
+        {
+            return "html/getFileDetails";
+        }
+        else{
+            return "redirect:/account/getFile?error=true";
+        }
+        
     }
 
     @GetMapping("/getFiles")
     public String getFiles(Model model) {
         List<MyFile> files = serviceMyFile.getAllFiles();
         model.addAttribute("files", files);
+        if(files.size()>0)
+        {
         return "html/getFiles";
     }
+    else{
+    return "redirect:/account?error=true";
+    }
+}
     @GetMapping("/download/{id}")
-
 public ResponseEntity<Resource> downloadFile(@PathVariable Long id) {
     MyFile file = serviceMyFile.getFile(id);
     ByteArrayResource resource = new ByteArrayResource(file.getFile_data());

@@ -28,8 +28,13 @@ public class AccountController {
 
     @PostMapping("/signup")
     public String signup(@ModelAttribute Account account) {
-        serviceAccount.addAccount(account);
-        return "redirect:/";
+
+        if(serviceAccount.addAccount(account)){
+            return "redirect:/";
+        }
+        else{
+        return "redirect:/signup?error=true";
+        }
     }
 
     @GetMapping("/deleteAccount")
@@ -39,7 +44,12 @@ public class AccountController {
     @Transactional
     @PostMapping("/deleteAccount")
     public String deleteAccount(@RequestParam String name,@RequestParam String password) {
-        serviceAccount.deleteAccount(name, password);
-        return "redirect:/";
+        if(serviceAccount.deleteAccount(name, password))
+        {
+            return "redirect:/";
+        }
+        else{
+            return "redirect:/deleteAccount?error=true";
+        }
     }
 }

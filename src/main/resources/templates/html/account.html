@@ -35,6 +35,9 @@
 </head>
 <body>
     <h1>Account</h1>
+    <div th:if="${param.error}" class="error">
+        <p>Error retrieving file. Please try again.</p>
+    </div>
     <p>Welcome, <span th:text="${name}"></span>!</p>
     <a th:href="@{/account/addFile}">Add File</a><br>
     <a th:href="@{/account/deleteFile}">Delete File</a><br>

@@ -12,4 +12,5 @@ import java.util.List;
 public interface RepositoryMyFile extends JpaRepository<MyFile,Long>{
 List<MyFile> findByAccount(Account account);
 MyFile findByIdAndAccount(Long id, Account account);
+boolean existsByIdAndAccount(Long id, Account account);
 }

@@ -42,12 +42,19 @@ public class ServiceMyFile {
     }
 
     public MyFile getFile(Long id) {
-        return repositoryMyFile.findById(id)
-                .orElseThrow(() -> new RuntimeException("File not found"));
+        return repositoryMyFile.findById(id).get();//must be cheked in controller because can be null
     }
-    public void deleteFile(Long id)
+    public boolean deleteFile(Long id)
     {
-    repositoryMyFile.deleteById(id);
+        if(repositoryMyFile.existsByIdAndAccount(id, getCurrentUser()))
+        {
+            repositoryMyFile.deleteById(id);
+            return true;    
+        }
+        else{
+        return false;
+        }
+    
     }
     public List<MyFile> getAllFiles()
     {
@@ -56,6 +63,6 @@ public class ServiceMyFile {
     }
     public MyFile getFile(Long id,String nameString) {
         Account account=repositoryAccount.findByName(nameString);
-        return repositoryMyFile.findByIdAndAccount(id,account);
+        return repositoryMyFile.findByIdAndAccount(id,account);//must be cheked in controller because can be null
     }
 }

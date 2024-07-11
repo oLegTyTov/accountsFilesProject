@@ -51,11 +51,21 @@
 </head>
 <body>
     <h1>Get a File</h1>
+    
+    <!-- Додавання блоку для відображення помилок -->
+    <div th:if="${param.error}" class="error">
+        <p>Error retrieving file. Please try again.</p>
+    </div>
+    
+    <!-- Форма для отримання файлу за ID -->
     <form th:action="@{/account/getFile}" method="post">
         <label for="id">File ID:</label>
         <input type="text" id="id" name="id"><br>
         <button type="submit">Get</button>
     </form>
+    
+    <!-- Додавання посилання для повернення до акаунту -->
+    <a href="/account">Back to Account</a>
 </body>
 </html>
 
